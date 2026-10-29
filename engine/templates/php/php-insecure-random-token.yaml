@@ -1,0 +1,21 @@
+id: php-insecure-random-token
+type: sast
+languages: [php]
+severity: medium
+cwe: [CWE-330]
+tags: [php, crypto, owasp-a02]
+message: "Token atau secret dibuat dengan generator acak yang tidak aman; gunakan random_bytes()."
+query: |
+  ((assignment_expression
+     left: (variable_name) @var
+     right: (function_call_expression function: (name) @fn)) @finding
+   (#match? @var "(?i)token|secret|nonce|csrf|otp|session|reset|api_?key|salt")
+   (#match? @fn "(?i)^(rand|mt_rand|uniqid|lcg_value)$"))
+  ((assignment_expression
+     left: (variable_name) @var
+     right: (function_call_expression
+       function: (name) @wrap
+       arguments: (arguments (argument (function_call_expression function: (name) @fn))))) @finding
+   (#match? @var "(?i)token|secret|nonce|csrf|otp|session|reset|api_?key|salt")
+   (#match? @wrap "(?i)^(md5|sha1|hash|base64_encode|bin2hex|dechex|substr|str_shuffle)$")
+   (#match? @fn "(?i)^(rand|mt_rand|uniqid|lcg_value)$"))

@@ -1,0 +1,4 @@
+example.com/acme/lib v1.0.0 h1:aaa=
+example.com/acme/lib v1.2.3 h1:ccc=
+example.com/acme/lib v1.2.3/go.mod h1:ddd=
+example.com/acme/graphonly v0.0.1/go.mod h1:ggg=

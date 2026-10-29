@@ -1,0 +1,3 @@
+name: ci
+min_severity: low
+fail_on: high

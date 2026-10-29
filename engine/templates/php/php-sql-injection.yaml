@@ -1,0 +1,20 @@
+id: php-sql-injection
+type: sast
+languages: [php]
+severity: high
+cwe: [CWE-89]
+tags: [php, injection, sql, owasp-a03]
+message: "Query SQL dibentuk dari input pengguna tanpa parameter terikat."
+query: |
+  ((function_call_expression
+     function: (name) @fn
+     arguments: (arguments (argument (_) @arg))) @finding
+   (#match? @fn "(?i)^(mysql_query|mysqli_query|mysqli_multi_query|mysqli_real_query|pg_query|sqlite_query|odbc_exec)$"))
+  ((member_call_expression
+     name: (name) @fn
+     arguments: (arguments (argument (_) @arg))) @finding
+   (#match? @fn "(?i)^(query|exec|multi_query|real_query)$"))
+taint:
+  capture: arg
+  require: tainted
+  sanitizers: [intval, floatval, mysqli_real_escape_string, mysql_real_escape_string, pg_escape_string, real_escape_string, addslashes, escape_string]

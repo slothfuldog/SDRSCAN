@@ -1,0 +1,14 @@
+id: php-curl-tls-verify-disabled
+type: sast
+languages: [php]
+severity: medium
+cwe: [CWE-295]
+tags: [php, tls, owasp-a02]
+message: "Verifikasi sertifikat TLS cURL dimatikan."
+query: |
+  ((function_call_expression
+     function: (name) @fn
+     arguments: (arguments . (argument (_)) . (argument (name) @opt) . (argument (_) @val))) @finding
+   (#match? @fn "(?i)^curl_setopt$")
+   (#match? @opt "^CURLOPT_SSL_VERIFY(PEER|HOST)$")
+   (#match? @val "(?i)^(false|0)$"))

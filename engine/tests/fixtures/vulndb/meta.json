@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "updated_at": "2026-10-20T00:00:00Z",
+  "advisory_count": 13,
+  "sources": {
+    "osv": {
+      "updated_at": "2026-10-20T00:00:00Z",
+      "ecosystems": {
+        "Go": {
+          "updated_at": "2026-10-20T00:00:00Z",
+          "advisories": 2
+        },
+        "Packagist": {
+          "updated_at": "2026-10-20T00:00:00Z",
+          "advisories": 4
+        },
+        "crates.io": {
+          "updated_at": "2026-10-20T00:00:00Z",
+          "advisories": 1
+        },
+        "npm": {
+          "updated_at": "2026-10-20T00:00:00Z",
+          "advisories": 2
+        }
+      }
+    },
+    "nvd": {
+      "updated_at": "2026-10-20T00:00:00Z",
+      "last_modified": "2026-10-20T00:00:00Z",
+      "entries": 4,
+      "products": [
+        "cpe:2.3:a:apache:http_server",
+        "cpe:2.3:a:nginx:nginx",
+        "cpe:2.3:a:php:php"
+      ]
+    }
+  }
+}

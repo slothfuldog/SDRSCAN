@@ -1,0 +1,16 @@
+id: php-unserialize-input
+type: sast
+languages: [php]
+severity: high
+cwe: [CWE-502]
+tags: [php, deserialization, owasp-a08]
+message: "unserialize() menerima input pengguna (object injection)."
+query: |
+  ((function_call_expression
+     function: (name) @fn
+     arguments: (arguments . (argument (_) @arg))) @finding
+   (#match? @fn "(?i)^unserialize$"))
+taint:
+  capture: arg
+  require: tainted
+  sanitizers: []

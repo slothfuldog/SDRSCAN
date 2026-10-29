@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "./ui-colors.css";
+@import "@fontsource-variable/public-sans";
+
+@theme {
+  --font-sans: 'Public Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+@layer base {
+  :root { color-scheme: light dark; }
+  body { @apply text-sm leading-6; }
+  h1 { @apply text-2xl font-semibold tracking-tight text-highlighted; }
+  h2 { @apply text-lg font-semibold text-highlighted; }
+  h3 { @apply text-base font-semibold text-highlighted; }
+  code, pre, kbd { font-family: var(--font-mono); }
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}

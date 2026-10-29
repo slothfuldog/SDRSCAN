@@ -1,0 +1,10 @@
+{
+    "packages": [
+        {"name": "acme/web-framework", "version": "2.5.3"},
+        {"name": "acme/version-zoo", "version": "3.0.2"},
+        {"name": "acme/branch", "version": "dev-main"}
+    ],
+    "packages-dev": [
+        {"name": "acme/dev-tool", "version": "1.4.0"}
+    ]
+}

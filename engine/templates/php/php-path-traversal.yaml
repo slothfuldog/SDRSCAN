@@ -1,0 +1,16 @@
+id: php-path-traversal
+type: sast
+languages: [php]
+severity: high
+cwe: [CWE-22]
+tags: [php, path-traversal, owasp-a01]
+message: "Path file dibentuk dari input pengguna (path traversal)."
+query: |
+  ((function_call_expression
+     function: (name) @fn
+     arguments: (arguments (argument (_) @arg))) @finding
+   (#match? @fn "(?i)^(fopen|file_get_contents|file_put_contents|readfile|file|unlink|copy|rename|rmdir|mkdir|scandir|opendir|highlight_file|show_source|move_uploaded_file)$"))
+taint:
+  capture: arg
+  require: tainted
+  sanitizers: [basename, realpath]

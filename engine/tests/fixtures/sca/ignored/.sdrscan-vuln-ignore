@@ -1,0 +1,2 @@
+# kerentanan yang sudah dinilai dan diterima
+CVE-2099-0001   # framework: tidak memakai query builder

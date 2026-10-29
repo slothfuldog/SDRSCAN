@@ -1,0 +1,17 @@
+id: php-command-injection
+type: sast
+languages: [php]
+severity: critical
+cwe: [CWE-78]
+tags: [php, injection, command, owasp-a03]
+message: "Perintah shell dibentuk dari input pengguna."
+query: |
+  ((function_call_expression
+     function: (name) @fn
+     arguments: (arguments (argument (_) @arg))) @finding
+   (#match? @fn "(?i)^(exec|system|shell_exec|passthru|popen|proc_open|pcntl_exec)$"))
+  (shell_command_expression) @finding @arg
+taint:
+  capture: arg
+  require: tainted
+  sanitizers: [escapeshellarg, escapeshellcmd]

@@ -1,0 +1,8 @@
+/engine/target
+/dist
+.DS_Store
+/backend/bin
+.env
+.env.*
+!.env.example
+/vulndb

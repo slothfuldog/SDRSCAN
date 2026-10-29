@@ -1,0 +1,17 @@
+id: php-open-redirect
+type: sast
+languages: [php]
+severity: medium
+cwe: [CWE-601]
+tags: [php, redirect, owasp-a01]
+message: "Header Location dibentuk dari input pengguna (open redirect)."
+query: |
+  ((function_call_expression
+     function: (name) @fn
+     arguments: (arguments . (argument (_) @arg))) @finding
+   (#match? @fn "(?i)^header$")
+   (#match? @arg "(?i)location"))
+taint:
+  capture: arg
+  require: tainted
+  sanitizers: []

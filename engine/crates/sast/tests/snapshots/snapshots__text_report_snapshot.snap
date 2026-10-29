@@ -1,0 +1,10 @@
+---
+source: crates/sast/tests/snapshots.rs
+expression: "report::format_text(&scan_fixtures())"
+---
+vulnerable.php:4:5: high [php-sql-injection] Query SQL dibentuk dari input pengguna tanpa parameter terikat.
+    mysqli_query($conn, "SELECT * FROM users WHERE id = " . $id)
+vulnerable.php:7:5: high [php-sql-injection] Query SQL dibentuk dari input pengguna tanpa parameter terikat.
+    $db->query("SELECT * FROM t WHERE n = '" . $_POST['n'] . "'")
+vulnerable.php:12:5: high [php-sql-injection] Query SQL dibentuk dari input pengguna tanpa parameter terikat.
+    mysql_query($q)

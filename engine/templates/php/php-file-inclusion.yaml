@@ -1,0 +1,18 @@
+id: php-file-inclusion
+type: sast
+languages: [php]
+severity: critical
+cwe: [CWE-98]
+tags: [php, inclusion, owasp-a03]
+message: "Path include/require ditentukan oleh input pengguna (file inclusion)."
+query: |
+  [
+    (include_expression (_) @arg)
+    (include_once_expression (_) @arg)
+    (require_expression (_) @arg)
+    (require_once_expression (_) @arg)
+  ] @finding
+taint:
+  capture: arg
+  require: tainted
+  sanitizers: [basename]

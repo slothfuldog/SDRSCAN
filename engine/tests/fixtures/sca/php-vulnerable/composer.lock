@@ -1,0 +1,27 @@
+{
+    "_readme": ["fixture SCA"],
+    "packages": [
+        {
+            "name": "acme/web-framework",
+            "version": "v2.4.0",
+            "type": "library"
+        },
+        {
+            "name": "acme/safe-lib",
+            "version": "1.0.0",
+            "type": "library"
+        },
+        {
+            "name": "acme/version-zoo",
+            "version": "3.0.0-RC2",
+            "type": "library"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "acme/dev-tool",
+            "version": "1.2.0",
+            "type": "library"
+        }
+    ]
+}

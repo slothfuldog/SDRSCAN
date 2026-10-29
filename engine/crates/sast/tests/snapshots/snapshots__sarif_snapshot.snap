@@ -1,0 +1,344 @@
+---
+source: crates/sast/tests/snapshots.rs
+expression: doc
+---
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulnerable.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "endColumn": 65,
+                  "endLine": 4,
+                  "snippet": {
+                    "text": "mysqli_query($conn, \"SELECT * FROM users WHERE id = \" . $id)"
+                  },
+                  "startColumn": 5,
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Query SQL dibentuk dari input pengguna tanpa parameter terikat."
+          },
+          "partialFingerprints": {
+            "sdrscanFingerprint/v1": "298d9a6a5fa482c18cb493528785be1ea86494d565c16ae3a303954a32c43141"
+          },
+          "ruleId": "php-sql-injection",
+          "ruleIndex": 8
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulnerable.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "endColumn": 66,
+                  "endLine": 7,
+                  "snippet": {
+                    "text": "$db->query(\"SELECT * FROM t WHERE n = '\" . $_POST['n'] . \"'\")"
+                  },
+                  "startColumn": 5,
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Query SQL dibentuk dari input pengguna tanpa parameter terikat."
+          },
+          "partialFingerprints": {
+            "sdrscanFingerprint/v1": "b02d21e4d883a39e4dd3ecedd04a8f1d2bc48195b7cb0400087b7642b42dd51e"
+          },
+          "ruleId": "php-sql-injection",
+          "ruleIndex": 8
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulnerable.php",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "endColumn": 20,
+                  "endLine": 12,
+                  "snippet": {
+                    "text": "mysql_query($q)"
+                  },
+                  "startColumn": 5,
+                  "startLine": 12
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Query SQL dibentuk dari input pengguna tanpa parameter terikat."
+          },
+          "partialFingerprints": {
+            "sdrscanFingerprint/v1": "fb3bc3aec214ca0352c42e7a7546679833654fca4c66896b2249fb738ee28285"
+          },
+          "ruleId": "php-sql-injection",
+          "ruleIndex": 8
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "sdrscan-sast",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "php-command-injection",
+              "properties": {
+                "security-severity": "9.5",
+                "tags": [
+                  "security",
+                  "php",
+                  "injection",
+                  "command",
+                  "owasp-a03",
+                  "external/cwe/cwe-78"
+                ]
+              },
+              "shortDescription": {
+                "text": "Perintah shell dibentuk dari input pengguna."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "php-curl-tls-verify-disabled",
+              "properties": {
+                "security-severity": "5.5",
+                "tags": [
+                  "security",
+                  "php",
+                  "tls",
+                  "owasp-a02",
+                  "external/cwe/cwe-295"
+                ]
+              },
+              "shortDescription": {
+                "text": "Verifikasi sertifikat TLS cURL dimatikan."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "php-eval",
+              "properties": {
+                "security-severity": "8.0",
+                "tags": [
+                  "security",
+                  "php",
+                  "code-execution",
+                  "owasp-a03",
+                  "external/cwe/cwe-95"
+                ]
+              },
+              "shortDescription": {
+                "text": "eval/create_function mengeksekusi string sebagai kode PHP."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "php-file-inclusion",
+              "properties": {
+                "security-severity": "9.5",
+                "tags": [
+                  "security",
+                  "php",
+                  "inclusion",
+                  "owasp-a03",
+                  "external/cwe/cwe-98"
+                ]
+              },
+              "shortDescription": {
+                "text": "Path include/require ditentukan oleh input pengguna (file inclusion)."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "php-hardcoded-secret",
+              "properties": {
+                "security-severity": "8.0",
+                "tags": [
+                  "security",
+                  "php",
+                  "secrets",
+                  "owasp-a07",
+                  "external/cwe/cwe-798"
+                ]
+              },
+              "shortDescription": {
+                "text": "Secret atau kredensial tertanam di kode; pindahkan ke konfigurasi atau secret manager."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "php-insecure-random-token",
+              "properties": {
+                "security-severity": "5.5",
+                "tags": [
+                  "security",
+                  "php",
+                  "crypto",
+                  "owasp-a02",
+                  "external/cwe/cwe-330"
+                ]
+              },
+              "shortDescription": {
+                "text": "Token atau secret dibuat dengan generator acak yang tidak aman; gunakan random_bytes()."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "php-open-redirect",
+              "properties": {
+                "security-severity": "5.5",
+                "tags": [
+                  "security",
+                  "php",
+                  "redirect",
+                  "owasp-a01",
+                  "external/cwe/cwe-601"
+                ]
+              },
+              "shortDescription": {
+                "text": "Header Location dibentuk dari input pengguna (open redirect)."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "php-path-traversal",
+              "properties": {
+                "security-severity": "8.0",
+                "tags": [
+                  "security",
+                  "php",
+                  "path-traversal",
+                  "owasp-a01",
+                  "external/cwe/cwe-22"
+                ]
+              },
+              "shortDescription": {
+                "text": "Path file dibentuk dari input pengguna (path traversal)."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "php-sql-injection",
+              "properties": {
+                "security-severity": "8.0",
+                "tags": [
+                  "security",
+                  "php",
+                  "injection",
+                  "sql",
+                  "owasp-a03",
+                  "external/cwe/cwe-89"
+                ]
+              },
+              "shortDescription": {
+                "text": "Query SQL dibentuk dari input pengguna tanpa parameter terikat."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "php-unserialize-input",
+              "properties": {
+                "security-severity": "8.0",
+                "tags": [
+                  "security",
+                  "php",
+                  "deserialization",
+                  "owasp-a08",
+                  "external/cwe/cwe-502"
+                ]
+              },
+              "shortDescription": {
+                "text": "unserialize() menerima input pengguna (object injection)."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "php-weak-password-hash",
+              "properties": {
+                "security-severity": "5.5",
+                "tags": [
+                  "security",
+                  "php",
+                  "crypto",
+                  "secrets",
+                  "owasp-a02",
+                  "external/cwe/cwe-328",
+                  "external/cwe/cwe-916"
+                ]
+              },
+              "shortDescription": {
+                "text": "Password di-hash dengan md5/sha1; gunakan password_hash()."
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "php-xss-echo",
+              "properties": {
+                "security-severity": "8.0",
+                "tags": [
+                  "security",
+                  "php",
+                  "xss",
+                  "owasp-a03",
+                  "external/cwe/cwe-79"
+                ]
+              },
+              "shortDescription": {
+                "text": "Input pengguna dicetak ke halaman tanpa encoding (XSS)."
+              }
+            }
+          ],
+          "version": "0.0.0-test"
+        }
+      }
+    }
+  ],
+  "version": "2.1.0"
+}

@@ -1,0 +1,16 @@
+id: php-xss-echo
+type: sast
+languages: [php]
+severity: high
+cwe: [CWE-79]
+tags: [php, xss, owasp-a03]
+message: "Input pengguna dicetak ke halaman tanpa encoding (XSS)."
+query: |
+  [
+    (echo_statement (_) @arg)
+    (print_intrinsic (_) @arg)
+  ] @finding
+taint:
+  capture: arg
+  require: tainted
+  sanitizers: [htmlspecialchars, htmlentities, esc_html, esc_attr, intval, floatval]

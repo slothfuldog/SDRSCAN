@@ -1,0 +1,11 @@
+id: php-eval
+type: sast
+languages: [php]
+severity: high
+cwe: [CWE-95]
+tags: [php, code-execution, owasp-a03]
+message: "eval/create_function mengeksekusi string sebagai kode PHP."
+query: |
+  ((function_call_expression
+     function: (name) @fn) @finding
+   (#match? @fn "(?i)^(eval|create_function)$"))

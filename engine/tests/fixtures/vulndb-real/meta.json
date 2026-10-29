@@ -1,0 +1,27 @@
+{
+  "format_version": 1,
+  "updated_at": "2026-10-28T02:49:15Z",
+  "advisory_count": 13,
+  "sources": {
+    "osv": {
+      "updated_at": "",
+      "ecosystems": {}
+    },
+    "nvd": {
+      "updated_at": "2026-10-28T02:49:15Z",
+      "last_modified": "2026-10-28T02:49:15Z",
+      "entries": 13,
+      "products": [
+        "cpe:2.3:a:apache:http_server",
+        "cpe:2.3:a:nginx:nginx",
+        "cpe:2.3:a:microsoft:internet_information_services",
+        "cpe:2.3:a:php:php",
+        "cpe:2.3:a:openssl:openssl",
+        "cpe:2.3:a:apache:tomcat",
+        "cpe:2.3:a:eclipse:jetty",
+        "cpe:2.3:a:nodejs:node.js",
+        "cpe:2.3:a:lighttpd:lighttpd"
+      ]
+    }
+  }
+}

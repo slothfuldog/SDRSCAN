@@ -1,0 +1,25 @@
+[package]
+name = "sdrscan-dast"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow = "1.0.104"
+clap = { version = "4.6.7", features = ["derive"] }
+percent-encoding = "2.3.2"
+regex = "1.13.1"
+sdrscan-core = { version = "0.1.0", path = "../core" }
+sdrscan-vulndb = { version = "0.1.0", path = "../vulndb" }
+serde_json = "1.0.154"
+tracing = "0.1.44"
+tracing-subscriber = "0.3.23"
+ureq = { version = "3.5.0", features = ["platform-verifier"] }
+url = "2.5.8"
+
+[dev-dependencies]
+assert_cmd = "2.2.2"
+jsonschema = "0.60.2"
+rustls = { version = "0.23.46", default-features = false, features = ["std", "ring"] }
+serde_json = "1.0.154"
+tempfile = "3.27.0"

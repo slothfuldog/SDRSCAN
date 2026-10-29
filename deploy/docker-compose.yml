@@ -1,0 +1,36 @@
+# docker compose -f deploy/docker-compose.yml up --build
+# Required in the environment (or a .env file next to this file):
+#   DB_PASSWORD, SDRSCAN_SECRET_KEY (32 random bytes, base64: `openssl rand -base64 32`)
+# Optional first Admin (created only when the users table is empty; password must be changed at first login):
+#   SDRSCAN_BOOTSTRAP_ADMIN_USER, SDRSCAN_BOOTSTRAP_ADMIN_PASSWORD
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: sdrscan
+      POSTGRES_USER: sdrscan
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sdrscan"]
+      interval: 5s
+  backend:
+    build: { context: .., dockerfile: deploy/Dockerfile }
+    depends_on: { postgres: { condition: service_healthy } }
+    environment:
+      DATABASE_URL: postgres://sdrscan:${DB_PASSWORD}@postgres:5432/sdrscan?sslmode=disable
+      SDRSCAN_LISTEN: 0.0.0.0:8080
+      SDRSCAN_ALLOWED_HOSTS: ${SDRSCAN_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      SDRSCAN_SAST_BIN: /usr/local/bin/sdrscan-sast
+      SDRSCAN_DAST_BIN: /usr/local/bin/sdrscan-dast
+      SDRSCAN_TEMPLATES: /opt/sdrscan/templates
+      SDRSCAN_WORKDIR: /work
+      SDRSCAN_SECRET_KEY: ${SDRSCAN_SECRET_KEY:?set SDRSCAN_SECRET_KEY}
+      SDRSCAN_COOKIE_SECURE: ${SDRSCAN_COOKIE_SECURE:-true}
+      SDRSCAN_BOOTSTRAP_ADMIN_USER: ${SDRSCAN_BOOTSTRAP_ADMIN_USER:-}
+      SDRSCAN_BOOTSTRAP_ADMIN_PASSWORD: ${SDRSCAN_BOOTSTRAP_ADMIN_PASSWORD:-}
+    tmpfs: ["/work:size=2g,uid=10001"]
+    read_only: true
+    ports: ["127.0.0.1:8080:8080"]   # put an HTTPS reverse proxy in front of it
+volumes:
+  pgdata: {}
